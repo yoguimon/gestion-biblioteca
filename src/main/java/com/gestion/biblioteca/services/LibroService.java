@@ -52,4 +52,18 @@ public class LibroService {
             return false;
         }
     }
+
+    public void devolverLibroABiblioteca(Long id) {
+        Optional<Libro> optionalLibro = libroRepository.findById(id);
+        if (optionalLibro.isEmpty()) {
+            throw new RuntimeException("Libro con id:"+id+" no encontrado");
+        }
+        Libro libro = optionalLibro.get();
+        libro.setEstado((byte) 0);
+        libro.setUsuario(null);
+        libroRepository.save(libro);
+
+    }
+    //Long idd =1L;
+    //Libro pp = libroRepository.findById(idd).orElseThrow(() -> new RuntimeException("Libro no encontrado"));
 }

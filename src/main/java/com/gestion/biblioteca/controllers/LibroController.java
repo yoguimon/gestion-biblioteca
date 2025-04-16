@@ -58,7 +58,7 @@ public class LibroController {
         String mensaje = libroService.agregarNuevoLibro(dtoLibro);
         return ResponseEntity.ok(mensaje);
     }
-    @PostMapping("/prestar")
+    @PutMapping("/prestar")
     private ResponseEntity<?> prestarLibro(@RequestBody DtoPrestarLibro dtoPrestarLibro){
         boolean res = libroService.prestarLibroAUsuario(dtoPrestarLibro);
         if(res){
@@ -67,6 +67,17 @@ public class LibroController {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body("No se encontraron registros en la base de datos");
+        }
+    }
+    @PutMapping("/devolver/{id}")
+    private ResponseEntity<?> devolverLibro(@PathVariable Long id){
+        try {
+            libroService.devolverLibroABiblioteca(id);
+            return ResponseEntity.ok("El libro se devolvió con éxito");
+        } catch (RuntimeException e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
         }
     }
 }
