@@ -64,6 +64,11 @@ public class LibroService {
         libroRepository.save(libro);
 
     }
+
+    public List<Libro> buscarLibrosPorTituloAutorIsbn(String palabra) {
+        return libroRepository.findByTituloContainingIgnoreCaseOrAutorContainingIgnoreCaseOrISBNContainingIgnoreCase(palabra,palabra,palabra);
+        //return null;
+    }
     //Long idd =1L;
     //Libro pp = libroRepository.findById(idd).orElseThrow(() -> new RuntimeException("Libro no encontrado"));
 }

@@ -80,4 +80,15 @@ public class LibroController {
                     .body(e.getMessage());
         }
     }
+    @GetMapping("/buscar")
+    private ResponseEntity<?> buscarLibroPor(@RequestParam("palabra") String palabra){
+        List<Libro> libros = libroService.buscarLibrosPorTituloAutorIsbn(palabra);
+        if(!libros.isEmpty()){
+            return ResponseEntity.ok(libros);
+        }else{
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("No se encontraron ningun libro");
+        }
+    }
 }

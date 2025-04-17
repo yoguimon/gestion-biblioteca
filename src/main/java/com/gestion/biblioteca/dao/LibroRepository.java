@@ -8,4 +8,5 @@ import java.util.List;
 public interface LibroRepository extends JpaRepository<Libro,Long> {
 
     List<Libro> findByEstado(byte estado);
+    List<Libro> findByTituloContainingIgnoreCaseOrAutorContainingIgnoreCaseOrISBNContainingIgnoreCase(String titulo, String autor, String isbn);
 }

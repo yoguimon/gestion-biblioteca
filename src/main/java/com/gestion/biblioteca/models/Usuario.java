@@ -1,5 +1,6 @@
 package com.gestion.biblioteca.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,6 +17,7 @@ public class Usuario {
     private String nombre;
     @Column(name = "dni")
     private String DNI;
+    @JsonIgnore
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Libro> libros = new ArrayList<>();
 
