@@ -67,7 +67,10 @@ public class LibroService {
 
     public List<Libro> buscarLibrosPorTituloAutorIsbn(String palabra) {
         return libroRepository.findByTituloContainingIgnoreCaseOrAutorContainingIgnoreCaseOrISBNContainingIgnoreCase(palabra,palabra,palabra);
-        //return null;
+    }
+    //opcion con query
+    public List<Libro> buscarLibrosPorTituloAutorIsbn2(String palabra) {
+        return libroRepository.filtroLibroPor(palabra);
     }
     //Long idd =1L;
     //Libro pp = libroRepository.findById(idd).orElseThrow(() -> new RuntimeException("Libro no encontrado"));

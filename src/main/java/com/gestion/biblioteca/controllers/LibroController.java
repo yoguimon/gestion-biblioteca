@@ -82,7 +82,7 @@ public class LibroController {
     }
     @GetMapping("/buscar")
     private ResponseEntity<?> buscarLibroPor(@RequestParam("palabra") String palabra){
-        List<Libro> libros = libroService.buscarLibrosPorTituloAutorIsbn(palabra);
+        List<Libro> libros = libroService.buscarLibrosPorTituloAutorIsbn2(palabra);
         if(!libros.isEmpty()){
             return ResponseEntity.ok(libros);
         }else{
