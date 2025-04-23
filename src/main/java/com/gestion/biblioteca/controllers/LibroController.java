@@ -22,30 +22,6 @@ import java.util.Map;
 public class LibroController {
     @Autowired
     private LibroService libroService;
-    @GetMapping("/obtener")
-    private ResponseEntity<List<Libro>> obtenerLibros(){
-        List<Libro> res = libroService.obtenerTodosLibros();
-        if(res.isEmpty()){
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(res);
-    }
-    @GetMapping("/obtener/disponibles/{estado}")
-    private ResponseEntity<List<Libro>> obtenerLibrosDisponibles(@PathVariable byte estado){
-        List<Libro> res = libroService.obtenerTodosLibrosDisponibles(estado);
-        if(res.isEmpty()){
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(res);
-    }
-    @GetMapping("/obtener/prestados/{estado}")
-    private ResponseEntity<List<Libro>> obtenerLibrosPrestados(@PathVariable byte estado){
-        List<Libro> res = libroService.obtenerTodosLibrosPrestados(estado);
-        if(res.isEmpty()){
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(res);
-    }
     @PostMapping("/agregar")
     private ResponseEntity<?> agregarLibro(@RequestBody @Valid DtoLibro dtoLibro, BindingResult result){
         if (result.hasErrors()){
@@ -82,7 +58,7 @@ public class LibroController {
     }
     @GetMapping("/buscar")
     private ResponseEntity<?> buscarLibroPor(@RequestParam("palabra") String palabra){
-        List<Libro> libros = libroService.buscarLibrosPorTituloAutorIsbn2(palabra);
+        List<Libro> libros = libroService.buscarLibrosPorTituloAutorIsbn(palabra);
         if(!libros.isEmpty()){
             return ResponseEntity.ok(libros);
         }else{
@@ -90,5 +66,29 @@ public class LibroController {
                     .status(HttpStatus.NOT_FOUND)
                     .body("No se encontraron ningun libro");
         }
+    }
+    @GetMapping("/obtener")
+    private ResponseEntity<List<Libro>> obtenerLibros(){
+        List<Libro> res = libroService.obtenerTodosLibros();
+        if(res.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(res);
+    }
+    @GetMapping("/obtener/disponibles/{estado}")
+    private ResponseEntity<List<Libro>> obtenerLibrosDisponibles(@PathVariable byte estado){
+        List<Libro> res = libroService.obtenerTodosLibrosDisponibles(estado);
+        if(res.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(res);
+    }
+    @GetMapping("/obtener/prestados/{estado}")
+    private ResponseEntity<List<Libro>> obtenerLibrosPrestados(@PathVariable byte estado){
+        List<Libro> res = libroService.obtenerTodosLibrosPrestados(estado);
+        if(res.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(res);
     }
 }

@@ -19,16 +19,6 @@ public class LibroService {
     private LibroRepository libroRepository;
     @Autowired
     private UsuarioRepository usuarioRepository;
-    public List<Libro> obtenerTodosLibros(){
-        return libroRepository.findAll();
-    }
-    public List<Libro> obtenerTodosLibrosDisponibles(byte estado) {
-        return libroRepository.findByEstado(estado);
-    }
-
-    public List<Libro> obtenerTodosLibrosPrestados(byte estado) {
-        return libroRepository.findByEstado(estado);
-    }
     public String agregarNuevoLibro(DtoLibro dtoLibro){
         Libro libro = new Libro();
         libro.setTitulo(dtoLibro.getTitulo());
@@ -71,6 +61,17 @@ public class LibroService {
     //opcion con query
     public List<Libro> buscarLibrosPorTituloAutorIsbn2(String palabra) {
         return libroRepository.filtroLibroPor(palabra);
+    }
+
+    public List<Libro> obtenerTodosLibros(){
+        return libroRepository.findAll();
+    }
+    public List<Libro> obtenerTodosLibrosDisponibles(byte estado) {
+        return libroRepository.findByEstado(estado);
+    }
+
+    public List<Libro> obtenerTodosLibrosPrestados(byte estado) {
+        return libroRepository.findByEstado(estado);
     }
     //Long idd =1L;
     //Libro pp = libroRepository.findById(idd).orElseThrow(() -> new RuntimeException("Libro no encontrado"));

@@ -1,10 +1,15 @@
 package com.gestion.biblioteca.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Data
 @Entity
 @Table(name = "libro")
+//@AllArgsConstructor
+//@NoArgsConstructor
 public class Libro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,9 +23,17 @@ public class Libro {
     private String ISBN;
     private byte estado=0;
 
-    public Long getId() {
-        return id;
+    public Libro() {
     }
+
+    public Libro(Long id, String titulo, String autor, String ISBN, byte estado) {
+        this.id = id;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.ISBN = ISBN;
+        this.estado = estado;
+    }
+
 
     public void setId(Long id) {
         this.id = id;
